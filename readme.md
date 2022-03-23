@@ -12,7 +12,7 @@ Collected data stores on the disk with provided or default file name. The latest
 The format of the stored data by default is CSV.
 
 ## How users can get started with the project
-###Call example (for Windows):
+### Call example (for Windows):
 ```kotlin
 python performance_data_collector.py [--p <path_to_executable_file>] [--i <positive_whole_nimber>]
 ```
