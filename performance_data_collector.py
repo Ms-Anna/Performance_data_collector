@@ -4,7 +4,7 @@ import subprocess
 import csv
 import os
 import argparse
-from time import sleep
+from time import sleep, time
 import psutil
 
 
@@ -20,7 +20,7 @@ def write_data(data, file):
 def log_data(ps_process, file, is_child, add_children):
     data = {'Date and time': datetime.datetime.now().strftime("%Y-%m-%d %X"),
             'PID': ps_process.pid,
-            'CPU usage (percent)': ps_process.cpu_percent(interval=1) / psutil.cpu_count()}
+            'CPU usage (percent)': ps_process.cpu_percent(interval=0.1) / psutil.cpu_count()}
 
     if platform.system() == 'Linux':
         data.update({'Resident Set Size': ps_process.memory_info().rss,
@@ -72,13 +72,16 @@ if __name__ == '__main__':
         # allow to specify the file path/name as additional argument if needed
         store_file = f'{args.s}' if args.s is not None else f'perf_data_collection_pid_{process_id}.csv'
 
+        nexttime = time()
         while process.poll() is None:
             try:
+                nexttime += int(time_interval)
                 log_data(p_process, store_file, False, get_children_data)
                 if get_children_data:
                     for child in p_process.children(recursive=False):
                         log_data(child, store_file, True, get_children_data)
-                sleep(int(time_interval))
+                sleep_time = nexttime - time()
+                sleep(sleep_time)
             except KeyboardInterrupt as err:
                 print('The program was interrupted.')
                 exit(0)
