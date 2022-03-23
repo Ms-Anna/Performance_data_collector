@@ -17,10 +17,10 @@ def write_data(data, file):
         writer.writerow(data)
 
 
-def log_data(ps_process, file, is_child, add_children=False):
+def log_data(ps_process, file, is_child, add_children):
     data = {'Date and time': datetime.datetime.now().strftime("%Y-%m-%d %X"),
             'PID': ps_process.pid,
-            'CPU usage (percent)': ps_process.cpu_percent()}
+            'CPU usage (percent)': ps_process.cpu_percent(interval=1) / psutil.cpu_count()}
 
     if platform.system() == 'Linux':
         data.update({'Resident Set Size': ps_process.memory_info().rss,
@@ -48,7 +48,7 @@ if __name__ == '__main__':
     parser.add_argument('-program_path', '--p', help='the path to executable file')
     parser.add_argument('-time_interval', '--i', help='time interval (seconds)')
     parser.add_argument('-store_file', '--s', help='the name of store file')
-    parser.add_argument('-follow_children', '--fch', type=bool, default=False, help='get child processes data')
+    parser.add_argument('-follow_children', '--fch', action='store_true', help='get child processes data')
     args = parser.parse_args()
 
     program_path = args.p
@@ -67,14 +67,14 @@ if __name__ == '__main__':
     try:
         process = subprocess.Popen(os.path.abspath(program_path), stdout=subprocess.DEVNULL)
         process_id = process.pid
+        p_process = psutil.Process(process_id)
 
         # allow to specify the file path/name as additional argument if needed
         store_file = f'{args.s}' if args.s is not None else f'perf_data_collection_pid_{process_id}.csv'
 
         while process.poll() is None:
             try:
-                p_process = psutil.Process(process_id)
-                log_data(p_process, store_file, False)
+                log_data(p_process, store_file, False, get_children_data)
                 if get_children_data:
                     for child in p_process.children(recursive=False):
                         log_data(child, store_file, True, get_children_data)
