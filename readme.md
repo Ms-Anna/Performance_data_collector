@@ -12,9 +12,9 @@ Collected data stores on the disk with provided or default file name. The latest
 The format of the stored data by default is CSV.
 
 ## How users can get started with the project
-###Call example (for Windows):
+### Call example (for Windows):
 ```kotlin
-python performance_data_collector.py [--p <path_to_executable_file>] [--i <positive_whole_nimber>]
+python performance_data_collector.py [--p <path_to_executable_file>] [--i <positive_whole_number>]
 ```
 
 \* for Linux use "python3" instead of "python"
@@ -28,4 +28,4 @@ Optional arguments:
 * [--fch <True || False>] - if True the program collects data for child processes that were launched by the main process.
 
 The project was implemented and may be run with Python 3.9.0. Сompatibility with previous Python versions has not been verified.
-Other requirements in [requirements.txt](https:...)
+Other requirements in [requirements.txt](https://github.com/Ms-Anna/Performance_data_collector/blob/master/requirements.txt)
