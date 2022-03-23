@@ -20,7 +20,7 @@ def write_data(data, file):
 def log_data(ps_process, file, is_child, add_children):
     data = {'Date and time': datetime.datetime.now().strftime("%Y-%m-%d %X"),
             'PID': ps_process.pid,
-            'CPU usage (percent)': ps_process.cpu_percent(interval=0.1) / psutil.cpu_count()}
+            'CPU usage (percent)': ps_process.cpu_percent(interval=0.5) / psutil.cpu_count()}
 
     if platform.system() == 'Linux':
         data.update({'Resident Set Size': ps_process.memory_info().rss,
