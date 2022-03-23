@@ -19,13 +19,11 @@ python performance_data_collector.py [--p <path_to_executable_file>] [--i <posit
 
 \* for Linux use "python3" instead of "python"
 
-
-
 If no arguments are provided, they will be requested.
 
 Optional arguments:
 * [--s <store_file_name>] - store data file name. By default it's 'perf_data_collection_pid_{process_id}.csv'
 * [--fch <True || False>] - if True the program collects data for child processes that were launched by the main process.
 
-The project was implemented and may be run with Python 3.9.0. Сompatibility with previous Python versions has not been verified.
-Other requirements in [requirements.txt](https://github.com/Ms-Anna/Performance_data_collector/blob/master/requirements.txt)
+The project was implemented and may be run with Python 3.9.0. Compatibility with previous Python versions has not been verified.
+Other requirements are in [requirements.txt](https://github.com/Ms-Anna/Performance_data_collector/blob/master/requirements.txt)
