@@ -21,9 +21,14 @@ python performance_data_collector.py [--p <path_to_executable_file>] [--i <posit
 
 If no arguments are provided, they will be requested.
 
+Required arguments:
+* [--p <path_to_executable_file>] - the path to an executable file
+* [--i <positive_whole_number>] - time interval between data collection iterations (seconds)
+
+
 Optional arguments:
 * [--s <store_file_name>] - store data file name. By default it's 'perf_data_collection_pid_{process_id}.csv'
-* [--fch <True || False>] - if True the program collects data for child processes that were launched by the main process.
+* [--fch <True || False>] - if True the program collects data for child processes that were launched by the main process
 
 The project was implemented and may be run with Python 3.9.0. Compatibility with previous Python versions has not been verified.
 Other requirements are in [requirements.txt](https://github.com/Ms-Anna/Performance_data_collector/blob/master/requirements.txt)
